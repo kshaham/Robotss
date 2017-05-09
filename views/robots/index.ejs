@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body><center>
+    <h1>Robots List</h1>
+
+    <a href="/robots/new">
+      <button type="button">+ New Robot </button>
+    </a>
+    <br>
+    <br>
+    <p> There are <%= robots.length %> Robots </p>
+
+    <table>
+
+        <ul>
+          <% robots.forEach(function(robot){ %>
+
+            <li>
+              <a href="/robots/<%= robot._id %>">  <%= robot._id %> </a>
+              - <%= robot.name %>
+              - <%= robot.description %>
+            </li>
+
+          <% }); %>
+        </ul>
+
+</center>
+  </body>
+</html>

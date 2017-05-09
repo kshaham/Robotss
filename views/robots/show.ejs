@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+    <p>Name: <%= robot.name %></p>
+    <p>Description: <%= robot.description %></p>
+    <p>Stock: <%= robot.in_stock %></p>
+
+ <a href="/robots/<%= robot._id %>/edit">
+    <button id="edit" >Edit</button>
+ </a>
+
+
+
+    <button id="delete">Delete</button>
+    <script type="text/javascript">
+        var deleteButton = document.getElementById("delete")
+        deleteButton.addEventListener("click", deleteBot, false)
+        function deleteBot()
+        {
+          const requestUrl = "<%= requestUrl %>"
+          const requestOptions =
+          {
+            method: "DELETE",
+            headers: {'Accept':'application/json', 'Content-Type':'application/json'}
+          }
+          fetch(requestUrl, requestOptions).then(function(response)
+          {
+            if (response.ok)
+            {
+              window.location = '/robots'
+              alert("Robot Destroyed")
+            } else
+            {
+              alert("Destruction Error.")
+            }
+          }).catch(function(err){
+            alert("Server Error. Maybe the API server is down or something. Try again in a few moments.")
+          })
+        }
+    </script>
+
+    <br></br>
+
+    <a href="/robots">Robots List</a>
+
+
+  </body>
+</html>

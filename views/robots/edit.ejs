@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+    <a href="/robots/<%= robot._id %>"><%= "<< back" %></a>
+
+    <form id="edit-robot-form" action="<%= requestUrl %>" method="<%= requestMethod %>">
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" placeholder="My Robot" value="<%= robot.name %>">
+      <br>
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="10" placeholder="Does all the things..."><%= robot.description %></textarea>
+      <br>
+      <label for="in-stock">Units in-stock</label>
+      <input id="in-stock" name="in-stock" type="number" placeholder="0" value="<%= robot.in_stock %>">
+      <br>
+      <button id="submit" type="submit">Submit</button>
+    </form>
+
+    <hr style="margin-top:2em;">
+
+    <script type="text/javascript">
+      const requestMethod = "<%= requestMethod %>"
+      const requestUrl = "<%= requestUrl %>"
+      console.log("FORM WILL", requestMethod, requestUrl)
+      var inputName = document.getElementById("name")
+      var inputDescription = document.getElementById("description")
+      var inputQuantityInStock = document.getElementById("in-stock")
+      var submitButton = document.getElementById("submit")
+      submitButton.addEventListener("click", submitForm, false)
+      function submitForm(event) {
+        event.preventDefault()
+        const formData = {name: inputName.value, description: inputDescription.value, in_stock: inputQuantityInStock.value}
+        console.log("SUBMITTING", formData)
+        const requestOptions = {
+          method: requestMethod,
+          headers: {'Accept':'application/json', 'Content-Type':'application/json'},
+          body: JSON.stringify(formData)
+        }
+        fetch(requestUrl, requestOptions).then(function(response) {
+          if (response.ok) {
+            response.json().then(function(json){
+              window.location = '/robots'
+            })
+          } else {
+            alert("Error. Make Sure all fields are valid")
+          }
+        }).catch(function(err){
+          alert("Server Error. Maybe the API server is down or something. Try again in a few moments.")
+        })
+      }
+    </script>
+  </body>
+</html>

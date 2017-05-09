@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+    <a href="/robots"><%= "<< back" %></a>
+
+    <form id="new-robot-form" action="https://southernct-443-robots-api.herokuapp.com/api/robots" method="POST">
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" placeholder="My Robot">
+      <br>
+
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="10" placeholder="Does all the things..."></textarea>
+      <br>
+
+      <label for="in-stock">Units in-stock</label>
+      <input id="in-stock" name="in_stock" type="number" placeholder="0">
+      <br>
+
+      <button id="submit" type="submit">Submit</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script><!-- ONLY NECESSARY IF YOU'RE SENDING REQUESTS VIA jQUERY -->
+    <script src="https://d3js.org/d3.v4.min.js"></script><!-- ONLY NECESSARY IF YOU'RE SENDING REQUESTS VIA D3 -->
+    <script type="text/javascript">
+
+      // TODO: ADD JAVASCRIPT HERE TO SEND DATA TO THE WEB SERVICE WHEN THE FORM SUBMIT BUTTON IS PRESSED
+      var inputName = document.getElementById("name")
+      var inputDescription = document.getElementById("description")
+      var inputQuantityInStock = document.getElementById("in-stock")
+      var submitButton = document.getElementById("submit")
+
+      submitButton.addEventListener("click", submitForm, false)
+
+      function submitForm(event)
+      {
+        event.preventDefault() // important to leave this here because it prevents duplicate form submission!
+
+        var requestUrl = "https://southernct-443-robots-api.herokuapp.com/api/robots"
+
+        var formData = {name: inputName.value, description: inputDescription.value, in_stock: inputQuantityInStock.value} // read input values
+        console.log("POSTING", formData, "TO", requestUrl)
+
+        $.post(requestUrl, formData)
+          .done(function(data, textStatus, xhr)
+            {
+              window.location = '/robots' // REDIRECT USER TO ROBOTS INDEX PAGE
+            })
+          .fail(function(xhr, textStatus, errorThrown)
+            {
+              alert("OOPS THERE WAS AN ERROR") // FURTHER EXPLORATION: send a more specific error message
+            })
+      }
+
+    </script>
+  </body>
+</html>
