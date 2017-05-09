@@ -2,32 +2,28 @@
 <html>
   <head>
     <title><%= title %></title>
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
-  <body><center>
-    <h1>Robots List</h1>
-
+  <body>
+    <h1><%= title %></h1>
+	<img src="http://oi40.tinypic.com/eqv5o1.jpg">
     <a href="/robots/new">
-      <button type="button">+ New Robot </button>
+      <button>+ New Animal</button>
     </a>
-    <br>
-    <br>
-    <p> There are <%= robots.length %> Robots </p>
+	<p>
+	<ul>
 
-    <table>
+      <% robots.forEach(function(robot){ %>
+          <a href="/robots/<%= robot._id %>"><%= robot._id %></a>
+          - <%= robot.name %>
+          - <%= robot.description %>
+			<br>
+      <% }) %>
 
-        <ul>
-          <% robots.forEach(function(robot){ %>
+	</ul>
+	</p>
+    <hr style="margin-top:2em;">
 
-            <li>
-              <a href="/robots/<%= robot._id %>">  <%= robot._id %> </a>
-              - <%= robot.name %>
-              - <%= robot.description %>
-            </li>
-
-          <% }); %>
-        </ul>
-
-</center>
+    <% include ../footer %>
   </body>
 </html>
