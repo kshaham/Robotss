@@ -15,10 +15,10 @@
       <br>
 
       <label for="description">Description</label>
-      <textarea id="description" name="description" rows="10" placeholder="Does all the things..."></textarea>
+      <textarea id="description" name="description" rows="10" placeholder="Description...."></textarea>
       <br>
 
-      <label for="in-stock">Units in-stock</label>
+      <label for="in-stock">Stock</label>
       <input id="in-stock" name="in_stock" type="number" placeholder="0">
       <br>
 
@@ -33,16 +33,14 @@
       var submitButton = document.getElementById("submit")
       submitButton.addEventListener("click", submitForm, false)
       function submitForm(event) {
-        event.preventDefault() // important to leave this here because it prevents duplicate form submission!
+        event.preventDefault() 
         var requestUrl = "https://southernct-443-robots-api.herokuapp.com/api/robots/"
-        var formData = {name: inputName.value, description: inputDescription.value, in_stock: inputQuantityInStock.value} // read input values
+        var formData = {name: inputName.value, description: inputDescription.value, in_stock: inputQuantityInStock.value} 
         console.log("POSTING", formData, "TO", requestUrl)
-        //
-        // Using jQuery
-        //
+ 
         $.post(requestUrl, formData)
           .done(function(data, textStatus, xhr) {
-            window.location = '/robots' // REDIRECT USER TO ROBOTS INDEX PAGE
+            window.location = '/robots' 
           })
           .fail(function(xhr, textStatus, errorThrown){
             alert("OOPS THERE WAS AN ERROR") // FURTHER EXPLORATION: send a more specific error message
