@@ -25,38 +25,30 @@
       <button id="submit" type="submit">Submit</button>
     </form>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script><!-- ONLY NECESSARY IF YOU'RE SENDING REQUESTS VIA jQUERY -->
-    <script src="https://d3js.org/d3.v4.min.js"></script><!-- ONLY NECESSARY IF YOU'RE SENDING REQUESTS VIA D3 -->
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script><!-- ONLY NECESSARY IF YOU'RE SENDING REQUESTS VIA jQUERY -->
     <script type="text/javascript">
-
-      // TODO: ADD JAVASCRIPT HERE TO SEND DATA TO THE WEB SERVICE WHEN THE FORM SUBMIT BUTTON IS PRESSED
       var inputName = document.getElementById("name")
       var inputDescription = document.getElementById("description")
       var inputQuantityInStock = document.getElementById("in-stock")
       var submitButton = document.getElementById("submit")
-
       submitButton.addEventListener("click", submitForm, false)
-
-      function submitForm(event)
-      {
+      function submitForm(event) {
         event.preventDefault() // important to leave this here because it prevents duplicate form submission!
-
-        var requestUrl = "https://southernct-443-robots-api.herokuapp.com/api/robots"
-
+        var requestUrl = "https://southernct-443-robots-api.herokuapp.com/api/robots/"
         var formData = {name: inputName.value, description: inputDescription.value, in_stock: inputQuantityInStock.value} // read input values
         console.log("POSTING", formData, "TO", requestUrl)
-
+        //
+        // Using jQuery
+        //
         $.post(requestUrl, formData)
-          .done(function(data, textStatus, xhr)
-            {
-              window.location = '/robots' // REDIRECT USER TO ROBOTS INDEX PAGE
-            })
-          .fail(function(xhr, textStatus, errorThrown)
-            {
-              alert("OOPS THERE WAS AN ERROR") // FURTHER EXPLORATION: send a more specific error message
-            })
+          .done(function(data, textStatus, xhr) {
+            window.location = '/robots' // REDIRECT USER TO ROBOTS INDEX PAGE
+          })
+          .fail(function(xhr, textStatus, errorThrown){
+            alert("OOPS THERE WAS AN ERROR") // FURTHER EXPLORATION: send a more specific error message
+          })
       }
-
     </script>
+  </body>
   </body>
 </html>
